@@ -4,14 +4,15 @@ call plug#begin()
 Plug 'tpope/vim-sensible'
 call plug#load('vim-sensible')
 
-Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neoinclude.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -21,6 +22,14 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'edkolev/promptline.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'embear/vim-localvimrc'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'sheerun/vim-polyglot'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'airblade/vim-gitgutter'
+
 
 " Language specific
 Plug 'digitaltoad/vim-jade'
@@ -29,7 +38,7 @@ Plug 'mxw/vim-jsx'
 Plug 'marijnh/tern_for_vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'Rip-Rip/clang_complete'
-Plug 'davidhalter/jedi-vim'
+Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 
@@ -39,10 +48,9 @@ filetype plugin indent on
 set ttimeoutlen=0
 
 " Indentation
-
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
 " Line numbers
 set number relativenumber
@@ -53,8 +61,15 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 
+" base16-ocean
+set background=dark
+let base16colorspace=256
+colorscheme base16-ocean
+syntax on
+
 " Vim-airline
 let g:airline_powerline_fonts = 1
+let g:airline_theme='base16'
 set laststatus=2
 
 " tagbar
@@ -63,11 +78,6 @@ nmap <F8> :TagbarToggle<CR>
 " NERDTree
 nmap <F7> :NERDTreeToggle<CR>
 
-" base16-ocean
-set background=dark
-let base16colorspace =256
-colorscheme base16-ocean
-syntax on
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -76,7 +86,8 @@ let g:deoplete#auto_completion_start_length = 0
 let g:min_pattern_length = 0
 
 let g:deoplete#sources = {}
-let g:deoplete#sources.cpp = ['clang_complete', 'buffer', 'tag']
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources.cpp = ['omni']
 
 inoremap <expr><Tab>  pumvisible() ? "\<C-n>" : "<Tab>"
 inoremap <S-Tab> <C-p>
@@ -84,20 +95,16 @@ inoremap <S-Tab> <C-p>
 " vim-jsx
 let g:jsx_ext_required = 0
 
-" Ctrl-P
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ -g ""'
+" FZF
+nmap <C-p> :Files<CR>
 
 " clang_complete
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
+let g:clang_use_library = 1
+let g:clang_library_path = '/lib/libclang.so'
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
@@ -126,11 +133,9 @@ let g:neomake_java_enabled_makers = ['javac']
 
 autocmd! BufWritePost * Neomake
 
-" eclim
-let g:EclimCompletionMethod = 'omnifunc'
-
 " jedi-vim
 autocmd FileType python setlocal omnifunc=jedi#completions
+autocmd FileType python set tabstop=4 shiftwidth=4
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
@@ -154,3 +159,5 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+set hidden
