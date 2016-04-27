@@ -59,3 +59,4 @@ runtime! runtime/clang_complete.vim
 runtime! runtime/neomake.vim
 runtime! runtime/jedi.vim
 runtime! runtime/neosnippet.vim
+runtime! localruntime/active/*.vim
