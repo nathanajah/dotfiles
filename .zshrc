@@ -11,9 +11,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-# Dircolors
-eval `dircolors ~/.dir_colors`
-
 # Editor
 export EDITOR='nvim'
 export VISUAL='nvim'
