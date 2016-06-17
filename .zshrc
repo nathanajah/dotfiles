@@ -42,5 +42,12 @@ modulecd() {
   cd "$HOME/drive/study/NUS/modules/$@/";
 }
 
+fd() {
+  local dir
+  dir=$(find ${1:-*} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
 PATH=$PATH:~/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
