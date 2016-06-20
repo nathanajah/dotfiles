@@ -6,7 +6,7 @@ let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_cpp_enabled_makers = ['gcc', 'clangtidy']
 let g:neomake_cpp_gcc_maker = {
             \ 'exe': 'g++',
-            \ 'args': ['-O2', '-std=c++11'],
+            \ 'args': ['-O2', '-std=c++11', '-o', '%:p:r.o'],
             \ }
 
 let g:neomake_cpp_clangtidy_maker = {
