@@ -25,13 +25,10 @@ Plug 'embear/vim-localvimrc'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-ctrlspace/vim-ctrlspace'
-Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
-Plug 'ludovicchabant/vim-lawrencium'
-Plug 'flowtype/vim-flow'
 
 
 " Language specific
@@ -42,6 +39,7 @@ Plug 'marijnh/tern_for_vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'Rip-Rip/clang_complete'
 Plug 'zchee/deoplete-jedi'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -49,6 +47,7 @@ filetype plugin indent on
 
 " Workaround for tmux escape lag
 set ttimeoutlen=0
+let g:javascript_plugin_flow=1
 
 runtime! runtime/base.vim
 runtime! runtime/colorscheme.vim
@@ -62,4 +61,5 @@ runtime! runtime/clang_complete.vim
 runtime! runtime/neomake.vim
 runtime! runtime/jedi.vim
 runtime! runtime/neosnippet.vim
+runtime! runtime/vim-javascript.vim
 runtime! localruntime/active/*.vim
