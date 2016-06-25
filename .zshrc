@@ -1,62 +1,23 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+source "$HOME/.antigen/antigen.zsh"
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+_zdotdir_set=${+parameters[ZDOTDIR]}
+if (( _zdotdir_set )); then
+    _old_zdotdir=$ZDOTDIR
 fi
 
-# Customize to your needs...
-# Editor
-export EDITOR='nvim'
-export VISUAL='nvim'
+antigen use prezto
 
-# Node JS
-export NODE_ENV='development'
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
 
-# Promptline
-source ~/.promptline/promptline.sh
+antigen apply
 
-# Vim binding
-bindkey -v
+if (( _zdotdir_set )); then
+    ZDOTDIR=$_old_zdotdir
+else
+    unset ZDOTDIR
+    unset _old_zdotdir
+fi;
+unset _zdotdir_set
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
-# Home bin
-if [ -d "$HOME/bin" ]
-then
-  PATH="$HOME/bin:$PATH"
-fi
-
-# Term
-set $TERM = 'xterm'
-
-# Module CD
-modulecd() {
-  cd "$HOME/drive/study/NUS/modules/$@/";
-}
-
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-# cdf - cd into the directory of the selected file
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-
-PATH=$PATH:~/bin
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "$HOME/.userzshrc"

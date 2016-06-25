@@ -1,0 +1,54 @@
+# Customize to your needs...
+# Editor
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# Node JS
+export NODE_ENV='development'
+
+# Promptline
+source ~/.promptline/promptline.sh
+
+# Vim binding
+bindkey -v
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# Home bin
+if [ -d "$HOME/bin" ]
+then
+  PATH="$HOME/bin:$PATH"
+fi
+
+# Term
+set $TERM = 'xterm'
+
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# Module CD
+modulecd() {
+  cd "$HOME/drive/study/NUS/modules/$@/";
+}
+
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-*} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+
+PATH=$PATH:~/bin
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
