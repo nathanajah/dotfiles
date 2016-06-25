@@ -7,6 +7,8 @@ fi
 
 antigen use prezto
 
+antigen-bundle Tarrasch/zsh-bd
+antigen bundle supercrabtree/k
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 
