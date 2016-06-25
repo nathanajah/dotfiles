@@ -51,6 +51,7 @@ let g:javascript_plugin_flow=1
 
 runtime! runtime/base.vim
 runtime! runtime/colorscheme.vim
+runtime! runtime/minibufexpl.vim
 runtime! runtime/airline.vim
 runtime! runtime/tagbar.vim
 runtime! runtime/nerdtree.vim
