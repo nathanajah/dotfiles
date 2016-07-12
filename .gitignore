@@ -1,2 +1,3 @@
 .config/nvim/localruntime/active
+.config/tmux/local/active.tmux.conf
 .config/tmuxlocal/active
